@@ -4,7 +4,7 @@
 
 > My goal was to create a state management library with minimal API but completely predictable behavior, so it is possible to implement logging, hot reloading, time travel, universal apps, record and replay, without any buy-in from the developer."
 > 
-> --- Dan Abramov on Redux
+> — Dan Abramov on Redux
 
 ## Influences
 
