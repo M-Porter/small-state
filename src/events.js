@@ -28,7 +28,7 @@ export function eventsOff(obj, event, fn) {
     return obj;
   }
 
-  for (const i = 0; callbacks.length; i++) {
+  for (let i = 0; i < callbacks.length; i++) {
     if (callbacks[i] === fn) {
       callbacks.splice(i, 1);
       break;
@@ -46,7 +46,7 @@ export function eventsTrigger(obj, event, args) {
 
   const callbacks = obj._internalEvents[event];
   if (callbacks) {
-    for (const i = 0; i < callbacks.length; i++) {
+    for (let i = 0; i < callbacks.length; i++) {
       callbacks[i].apply(obj, args);
     }
   }

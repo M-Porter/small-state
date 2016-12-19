@@ -29,6 +29,8 @@ This assumes you are using npm as your package manager.
 
 **small-state** was written in ES2015 and currently is not precompiled before distribution so Babel is currently needed to use. Currently, only `babel-preset-2015` is required to use the library but more may be included in the future. View `.babelrc` with each release to stay up to date with required Babel plugins.
 
+If you wish to use the UMD or CommonJS versions of the library, clone down the library and run `npm install` and `npm run build`. This will build the UMD, CommonJS and ES versions of the library.
+
 ## Usage
 
 ### Setup

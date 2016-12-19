@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import Promise from 'bluebird';
 import Events from './events';
 import createDispatcher from './dispatcher';
 

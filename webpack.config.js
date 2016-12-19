@@ -6,7 +6,9 @@ var env = process.env.NODE_ENV;
 
 var config = {
   module: {
-    loaders: { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
+    loaders: [
+      { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
+    ]
   },
   output: {
     library: 'SmallState',
