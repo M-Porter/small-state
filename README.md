@@ -17,7 +17,7 @@ If you have used any of the libraries above, the action/reducer pattern in this 
 ## Features
 - Pure state reducers
 - No side effects
-- State based on [Immutable.js](https://facebook.github.io/immutable-js/)
+- State based on [seamless-immutable](https://github.com/rtfeldman/seamless-immutable)
 - Promise based
 - Minimal event system for registering state change hooks
 
