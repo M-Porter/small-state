@@ -1,5 +1,7 @@
 /**
- *
+ * @param {Object} obj
+ * @param {String} event
+ * @param {Function} fn
  */
 export function eventsOn(obj, event, fn) {
   obj._internalEvents = obj._internalEvents || {};
@@ -8,7 +10,9 @@ export function eventsOn(obj, event, fn) {
 }
 
 /**
- *
+ * @param {Object} obj
+ * @param {String} event
+ * @param {Function} fn
  */
 export function eventsOff(obj, event, fn) {
   obj._internalEvents = obj._internalEvents || {};
@@ -39,7 +43,9 @@ export function eventsOff(obj, event, fn) {
 }
 
 /**
- *
+ * @param {Object} obj
+ * @param {String} event
+ * @param {Array} args
  */
 export function eventsTrigger(obj, event, args) {
   obj._internalEvents = obj._internalEvents || {};
@@ -56,18 +62,30 @@ export function eventsTrigger(obj, event, args) {
 
 /**
  * Public APIs
+ *
  * @export
  */
 const Events = {};
 
+/**
+ * @param {String} event
+ * @param {Function} fn
+ */
 Events.on = function(event, fn) {
   return eventsOn(this, event, fn);
 };
 
+/**
+ * @param {String} event
+ */
 Events.off = function(event) {
   return eventsOff(this, event);
 };
 
+/**
+ * @param {String} event
+ * @param {Array} args
+ */
 Events.trigger = function(event, ...args) {
   return eventsTrigger(this, event, args);
 };

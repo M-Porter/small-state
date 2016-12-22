@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import Immutable from 'seamless-immutable';
 import Events from './events';
 import createDispatcher from './dispatcher';
 
@@ -8,10 +8,11 @@ import createDispatcher from './dispatcher';
  * @return {Object}
  */
 export default function createStore(initialState = {}) {
+
     /**
-     * @type {Immutable.Map}
+     * @type {Object} - Immutable state object
      */
-    const state = Immutable.fromJS(initialState);
+    const state = Immutable.from(initialState);
 
     /**
      * The store object
@@ -33,8 +34,8 @@ export default function createStore(initialState = {}) {
     }
 
     /**
-     * Returns the current state as an ImmutableJS object
-     * @returns {Immutable.Map}
+     * Returns the current state as an immutable object
+     * @returns {Object}
      */
     function getState() {
         return state;

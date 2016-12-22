@@ -1,9 +1,10 @@
 /**
  * @export
  * @param {Object} store
- * @param {Immutable.Map} state
+ * @param {Object} state - Immutable state object
  */
 export default function createDispatcher(store, state) {
+
   /**
    * Dispatches an action function
    * @param {Function} action
