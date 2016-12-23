@@ -11,4 +11,10 @@ describe('store', () => {
     expect(methods).toContain('off');
     expect(methods).toContain('trigger');
   });
+
+  it('returns store state with getState', () => {
+    const store = createStore();
+
+    expect(store.getState()).toBeInstanceOf(Object);
+  });
 });

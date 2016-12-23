@@ -6,6 +6,6 @@ describe('createDispatcher', () => {
     const store = createStore();
     const dispatcher = createDispatcher(store.getStore(), store.getState());
 
-    expect(typeof dispatcher).toBe('function');
+    expect(dispatcher).toBeInstanceOf(Function);
   });
 });

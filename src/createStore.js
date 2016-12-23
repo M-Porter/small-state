@@ -12,7 +12,7 @@ export default function createStore(initialState = {}) {
     /**
      * @type {Object} - Immutable state object
      */
-    const state = Immutable.from(initialState);
+    var state = Immutable.from(initialState);
 
     /**
      * The store object
