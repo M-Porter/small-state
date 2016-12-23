@@ -17,13 +17,13 @@ export default function createDispatcher(store, state) {
     }
 
     const dispatchPromise = new Promise((resolve, reject) => {
-        action({
-            store,
-            state,
-            payload,
-            resolve,
-            reject
-        });
+      action({
+        store,
+        state,
+        payload,
+        resolve,
+        reject
+      });
     });
 
     /**

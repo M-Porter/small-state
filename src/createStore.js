@@ -38,7 +38,7 @@ export default function createStore(initialState = {}) {
      * @returns {Object}
      */
     function getState() {
-        return state;
+      return state;
     }
 
     const dispatch = createDispatcher(store, state);
