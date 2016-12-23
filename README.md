@@ -14,9 +14,9 @@ provide a predictable state container.
 
 ## Influences
 
-- Redux
-- Flux
-- MobX
+- [Redux](http://redux.js.org/)
+- [Flux](https://facebook.github.io/flux/)
+- [MobX](https://mobxjs.github.io/mobx/)
 
 If you have used any of the libraries above, the action/reducer pattern in 
 this library will come easily to you.
@@ -24,7 +24,7 @@ this library will come easily to you.
 ## Features
 - Pure state reducers
 - No side effects
-- State based on [seamless-immutable](https://github.com/rtfeldman/seamless-immutable)
+- Immutable State based on [seamless-immutable](https://github.com/rtfeldman/seamless-immutable)
 - Promise based
 - Minimal event system for registering state change hooks
 
@@ -63,8 +63,8 @@ this object will become the inital state. For example...
 
 ```js
 app.appStore = createStore({
-    foo: 'bar',
-    someList: [1, 2, 3, 4, 5]
+  foo: 'bar',
+  someList: [1, 2, 3, 4, 5]
 });
 ```
 Or how I do it...
@@ -133,7 +133,7 @@ is set for the rest of the code in this section:
 import { createStore } from 'small-state';
 
 const store = createStore({
-    count: 0
+  count: 0
 });
 ```
 
@@ -195,7 +195,7 @@ const incrementCounter = ({ state, store, resolve }) => {
   const newState = state.update('count', x => x + 1);
 
   store.trigger('count:incremented');
-  
+
   resolve(newState);
 }
 
@@ -204,9 +204,22 @@ store.getStore().on('count:incremented', () => console.log(store.getState().coun
 
 store.getStore().dispatch(incrementCounter);
 
+// Important to remove your events if you are creating them inside of destroyable
+// js objects such as views in Backbone or Marionette.
 store.getStore().off('count:incremented');
 ```
 
-The downside to the event listener is that due to javascript's asynchronous
-nature, there is no guarentee that the state will be updated by the time the
-event callback is executed.
+Events can be useful but can lead to issues. One of those issues is that
+there is no guarentee that the state has been updated at the time of event 
+triggers within your reducers. To ensure that your events are triggered _after_
+the state has been updated, the events you wish to trigger can be passed as the
+second argument in resolve.
+
+```js
+const incrementCounter = ({ state, store, resolve }) => {
+  const newState = state.update('count', x => x + 1);
+
+  // 'count:incremented' will now be updated AFTER the new state has been set
+  resolve(newState, ['count:incremented']);
+}
+```
