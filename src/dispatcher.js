@@ -29,9 +29,24 @@ export default function createDispatcher(store, state) {
      * If resolve(state) is not called, the new state will not be set from
      * the reducers.
      */
-    Promise.all([dispatchPromise]).then((newState) => {
+    Promise.all([dispatchPromise]).then((newState, events) => {
         state = newState;
+
         store.trigger('state:change');
+
+        // If events is array, trigger all events in the array
+        if (Array.isArray(events)) {
+          for (const event of events) {
+            store.trigger(event);
+          }
+        }
+
+        // If events is not an array and is just a string, trigger that event.
+        else if (typeof events === 'string') {
+          store.trigger(events);
+        }
+
+        return Promise.resolve(state);
     });
 
     return dispatchPromise;
