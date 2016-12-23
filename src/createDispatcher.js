@@ -12,6 +12,10 @@ export default function createDispatcher(store, state) {
    * @returns {Promise}
    */
   return function dispatch(action, payload = {}) {
+    if (typeof action !== 'function') {
+      throw Error("Passed reducer is not a function.");
+    }
+
     const dispatchPromise = new Promise((resolve, reject) => {
         action({
             store,

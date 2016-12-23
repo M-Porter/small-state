@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 import Events from './events';
-import createDispatcher from './dispatcher';
+import createDispatcher from './createDispatcher';
 
 /**
  * @export

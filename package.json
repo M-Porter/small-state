@@ -11,7 +11,8 @@
     "src"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:watch": "npm test -- --watch",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/small-state.js",
@@ -30,10 +31,14 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "cross-env": "^3.1.3",
+    "jest": "^18.0.0",
     "webpack": "^1.14.0"
   },
   "repository": {
     "url": "git@github.com:M-Porter/small-state.git",
     "type": "git"
+  },
+  "jest": {
+    "testRegex": "(/test/.*\\.spec.js)$"
   }
 }
