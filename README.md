@@ -122,7 +122,7 @@ into how to actually update the state in the next section
 ```
 const store = store.getStore();
 
-store.getStore().dispatch(someReducerFunction); // Dispatch returns a thenable
+store.dispatch(someReducerFunction); // Dispatch returns a thenable
 ```
 
 ### Mutating the state
@@ -162,16 +162,16 @@ const resetCounter = ({ state, resolve }) => {
 These reducers are then dispatched like so:
 
 ```js
-store.getStore().dispatch(incrementCounter)
+store.dispatch(incrementCounter)
   .then(state => console.log(state.count)); // Prints out '1'
 
-store.getStore().dispatch(incrementCounter)
+store.dispatch(incrementCounter)
   .then(state => console.log(state.count)); // Prints out '2'
 
-store.getStore().dispatch(decrementCounter)
+store.dispatch(decrementCounter)
   .then(state => console.log(state.count)); // Prints out '3'
 
-store.getStore().dispatch(resetCounter)
+store.dispatch(resetCounter)
   .then(state => console.log(state.count)); // Prints out '0'
 ```
 
@@ -204,7 +204,7 @@ const incrementCounter = ({ state, store, resolve }) => {
 // store and listener callbacks
 store.getStore().on('count:incremented', () => console.log(store.getState().count));
 
-store.getStore().dispatch(incrementCounter);
+store.dispatch(incrementCounter);
 
 // Important to remove your events if you are creating them inside of destroyable
 // js objects such as views in Backbone or Marionette.
@@ -214,8 +214,33 @@ store.getStore().off('count:incremented');
 Events can be useful but can lead to issues. One of those issues is that
 there is no guarentee that the state has been updated at the time of event 
 triggers within your reducers. To ensure that your events are triggered _after_
-the state has been updated, the events you wish to trigger can be passed as the
-second argument in resolve.
+the state has been updated, you can pass the events you wish to be triggered
+alongside the resolved state.
+
+[Much like how functions can only return single values, promises can only resolve
+a single value.](http://stackoverflow.com/a/28703648) To get around this and to 
+allow for resolving of state and events, the resolved value must be an array.
+
+```js
+// Incorrect
+resolve(
+  newState,
+  ['event1', 'event2']
+);
+
+// Incorrect
+resolve([
+  newState,
+  'event1', 
+  'event2'
+]);
+
+// Correct
+resolve([
+  newState,
+  ['event1', 'event2']
+]);
+```
 
 ```js
 const incrementCounter = ({ state, store, resolve }) => {
@@ -225,3 +250,4 @@ const incrementCounter = ({ state, store, resolve }) => {
   resolve([newState, ['count:incremented']]);
 }
 ```
+
