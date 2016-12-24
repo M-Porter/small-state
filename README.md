@@ -1,5 +1,7 @@
 # small-state
 
+[![Build Status](https://travis-ci.org/M-Porter/small-state.svg?branch=master)](https://travis-ci.org/M-Porter/small-state)
+
 **small-state** is a minimalistic state management library which encourages 
 immutability and strict unidirectional data flow in frontend applications. 
 This library was created for use in Backbone and Marionette applications to 
