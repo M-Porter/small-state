@@ -220,6 +220,6 @@ const incrementCounter = ({ state, store, resolve }) => {
   const newState = state.update('count', x => x + 1);
 
   // 'count:incremented' will now be updated AFTER the new state has been set
-  resolve(newState, ['count:incremented']);
+  resolve([newState, ['count:incremented']]);
 }
 ```
