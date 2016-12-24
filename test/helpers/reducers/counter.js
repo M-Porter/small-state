@@ -15,15 +15,15 @@ export const resetCounter = ({ state, resolve }) => {
 
 export const incrementCounterWithEvent = ({ state, resolve }) => {
   const newState = state.update('count', x => x + 1);
-  resolve(newState, ['count:incremented']);
+  resolve([newState, ['count:incremented']]);
 }
 
 export const decrementCounterWithEvent = ({ state, resolve }) => {
   const newState = state.update('count', x => x - 1);
-  resolve(newState, ['count:decremented']);
+  resolve([newState, ['count:decremented']]);
 }
 
 export const resetCounterWithEvent = ({ state, resolve }) => {
   const newState = state.set('count', 0);
-  resolve(newState, ['count:reset']);
+  resolve([newState, ['count:reset']]);
 }

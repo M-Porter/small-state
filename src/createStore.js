@@ -76,8 +76,20 @@ export default function createStore(initialState = {}) {
      * If resolve(state) is not called, the new state will not be set from
      * the reducers.
      */
-    dispatchPromise.then((newState, events) => {
-      setState(newState);
+    dispatchPromise.then((result /* [newState, events] */) => {
+      let localState;
+      let events;
+
+      if (Array.isArray(result)) {
+        localState = result[0];
+        if (result.length === 2) {
+          events = result[1];
+        }
+      } else {
+        localState = result;
+      }
+
+      setState(localState);
 
       getStore().trigger('state:changed');
 
