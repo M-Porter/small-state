@@ -106,13 +106,13 @@ listener events to the store which can be trigger from the reducers.
 
 ```js
 // Add listen event to the store
-store.getStore().getStore().on('some:event', () => doSomething());
+store.getStore().on('some:event', () => doSomething());
 
 // Trigger event
-store.getStore().getStore().trigger('some:event');
+store.getStore().trigger('some:event');
 
 // Remove the event since small-state does not clean up after itself
-store.getStore().getStore().off('some:event');
+store.getStore().off('some:event');
 ```
 
 The `dispatch()` function is used to actually update the state. We will get
