@@ -10,19 +10,40 @@
  */
 export default function connectStoreToView(View, store) {
 
-  return View.extend({
-    initialize() {
-      this.store = store;
-      this.state = this.store.getState();
+  // Check to make sure the View actually is a view
+  if (
+    typeof View.extend !== 'function'
+    && typeof View.__super__ !== 'object'
+  ) {
+    throw new Error('Expecting View to be an instance of Backbone.View');
+  }
 
-      this.__super__.initialize.call(this);
+  // Check to make sure the passed store is a small-state store
+  if (
+    typeof store.getState !== 'function'
+    || typeof store.getStore !== 'function'
+    || typeof store.dispatch !== 'function'
+  ) {
+    throw new Error('Expecting store to be a small-state store.');
+  }
+
+  return View.extend({
+    initialize: function() {
+      this.appStore = store;
+      this.state = this.appStore.getState();
+
+      if (typeof View.prototype.initialize === 'function') {
+        View.prototype.initialize.apply(this, arguments);
+      }
     },
 
-    onBeforeRender() {
-      this.store = store;
-      this.state = this.store.getState();
+    onBeforeRender: function() {
+      this.appStore = store;
+      this.state = this.appStore.getState();
 
-      this.__super__.onBeforeRender.call(this);
+      if (typeof View.prototype.onBeforeRender === 'function') {
+        View.prototype.onBeforeRender.apply(this, arguments);
+      }
     }
   });
 }
