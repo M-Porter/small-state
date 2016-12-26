@@ -251,3 +251,19 @@ const incrementCounter = ({ state, store, resolve }) => {
 }
 ```
 
+## Connecting the store to your views
+
+**small-state** comes with a helper function to automatically connect your store
+and state to your views so that your views always have the latest states on render
+and initialize.
+
+```js
+import View from 'your/View';
+import { connectStoreToView, createStore } from 'small-state';
+
+const appStore = createStore();
+const ConnectedView = connectStoreToView(View, appStore);
+
+// view now has the properties appStore and state.
+const view = new ConnectedView();
+```
