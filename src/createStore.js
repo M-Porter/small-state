@@ -17,7 +17,7 @@ export default function createStore(initialState = {}) {
    * The store object
    * @type {Object}
    */
-  const store = {
+  var store = {
     getState,
     on: Events.on,
     off: Events.off,
