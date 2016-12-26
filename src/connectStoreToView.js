@@ -5,6 +5,7 @@
  *
  * @export
  * @param {Marionette.View} view
+ * @param {Object} store
  * @return {Object}
  */
 export default function connectStoreToView(View, store) {
