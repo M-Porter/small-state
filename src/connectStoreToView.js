@@ -27,22 +27,32 @@ export default function connectStoreToView(View, store) {
     throw new Error('Expecting store to be a small-state store.');
   }
 
+  // Creating a proxy allows us to observe and always return the newest store
+  // and state.
+  const containerProxy = new Proxy(store, {
+    get(target, property) {
+      switch(property) {
+      case 'store': return target;
+      case 'state': return target.getState();
+      default: return target;
+      }
+    }
+  });
+
+  /**
+   * Access small-state store within your views via the `storeContainer`
+   * property.
+   *
+   * this.storeContainer.store => getStore(), getState(), dispatch()
+   * this.storeContainer.state => getState() => {Object}
+   */
   return View.extend({
     initialize: function() {
-      this.appStore = store;
-      this.state = this.appStore.getState();
+      this.storeContainer = containerProxy;
+      this.sc$ = this.storeContainer;
 
       if (typeof View.prototype.initialize === 'function') {
         View.prototype.initialize.apply(this, arguments);
-      }
-    },
-
-    onBeforeRender: function() {
-      this.appStore = store;
-      this.state = this.appStore.getState();
-
-      if (typeof View.prototype.onBeforeRender === 'function') {
-        View.prototype.onBeforeRender.apply(this, arguments);
       }
     }
   });
