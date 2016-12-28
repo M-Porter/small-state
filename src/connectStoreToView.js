@@ -29,13 +29,17 @@ export default function connectStoreToView(View, store) {
 
   // Creating a proxy allows us to observe and always return the newest store
   // and state.
-  const containerProxy = new Proxy(store, {
-    get(target, property) {
-      switch(property) {
-      case 'store': return target;
-      case 'state': return target.getState();
-      default: return target;
-      }
+  const containerProxy = {};
+
+  Object.defineProperty(containerProxy, 'store', {
+    get() {
+      return store;
+    }
+  });
+
+  Object.defineProperty(containerProxy, 'state', {
+    get() {
+      return store.getState();
     }
   });
 

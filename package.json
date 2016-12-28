@@ -24,7 +24,6 @@
   "license": "MIT",
   "dependencies": {
     "core-js": "^2.4.1",
-    "proxy-polyfill": "^0.1.6",
     "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {

@@ -10,6 +10,8 @@ script:
 branches:
   only:
     - master
+    - /^.*-feature$/
+    - /^.*-release-candidate$/
 cache:
   directories:
     - $HOME/.npm
