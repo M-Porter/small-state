@@ -33,14 +33,32 @@ describe('connectStoreToView', () => {
     const view = new View();
     view.render();
 
-    const storeContainerMethods = Object.keys(view.appStore);
+    const containerMethods = Object.keys(view.sc$);
+
+    // If the createStore functions are returned but throw an execption if
+    // invoked, then we know that the proxy is working.
+    expect(containerMethods.length).toBe(3);
+
+    expect(() =>
+      view.sc$.getState()
+    ).toThrow();
+
+    expect(() =>
+      view.sc$.getStore()
+    ).toThrow();
+
+    expect(() =>
+      view.sc$.dispatch(new Function)
+    ).toThrow();
+
+    const storeContainerMethods = Object.keys(view.sc$.store);
 
     expect(storeContainerMethods.length).toBe(3);
     expect(storeContainerMethods).toContain('getState');
     expect(storeContainerMethods).toContain('getStore');
     expect(storeContainerMethods).toContain('dispatch');
 
-    const storeMethods = Object.keys(view.appStore.getStore());
+    const storeMethods = Object.keys(view.sc$.store.getStore());
 
     expect(storeMethods.length).toBe(4);
     expect(storeMethods).toContain('getState');
@@ -55,12 +73,11 @@ describe('connectStoreToView', () => {
     const view = new View();
     view.render();
 
-    expect(view.state.count).toEqual(0);
+    expect(view.sc$.state.count).toEqual(0);
 
-    return view.appStore.dispatch(Reducers.incrementCounter)
+    return app.appStore.dispatch(Reducers.incrementCounter)
       .then(() => {
-        view.render();
-        expect(view.state.count).toEqual(1);
+        expect(view.sc$.state.count).toEqual(1);
       });
   });
 
@@ -68,14 +85,13 @@ describe('connectStoreToView', () => {
     const view = new View();
     view.render();
 
-    return view.appStore.dispatch(Reducers.incrementCounter)
-      .then(() => view.appStore.dispatch(Reducers.incrementCounter))
-      .then(() => view.appStore.dispatch(Reducers.incrementCounter))
-      .then(() => view.appStore.dispatch(Reducers.incrementCounter))
-      .then(() => view.appStore.dispatch(Reducers.incrementCounter))
+    return app.appStore.dispatch(Reducers.incrementCounter)
+      .then(() => view.sc$.store.dispatch(Reducers.incrementCounter))
+      .then(() => app.appStore.dispatch(Reducers.incrementCounter))
+      .then(() => view.sc$.store.dispatch(Reducers.incrementCounter))
+      .then(() => app.appStore.dispatch(Reducers.incrementCounter))
       .then(() => {
-        view.render();
-        expect(view.state.count).toEqual(5);
+        expect(view.sc$.state.count).toEqual(5);
       });
   });
 });
