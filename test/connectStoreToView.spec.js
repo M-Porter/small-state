@@ -91,6 +91,7 @@ describe('connectStoreToView', () => {
       .then(() => app.appStore.dispatch(Reducers.incrementCounter))
       .then(() => {
         expect(view.sc$.state.count).toEqual(5);
+        expect(app.appStore.getState().count).toEqual(5);
       });
   });
 });
