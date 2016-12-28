@@ -1,4 +1,4 @@
-import createStore from '../src/createStore';
+import { createStore } from '../src';
 
 describe('store dispatch', () => {
   it('throws if reducer is not a function', () => {

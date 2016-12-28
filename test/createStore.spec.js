@@ -1,4 +1,4 @@
-import createStore from '../src/createStore';
+import { createStore } from '../src';
 
 describe('createStore', () => {
   it('exposes the public API', () => {

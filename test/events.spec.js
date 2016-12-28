@@ -1,4 +1,4 @@
-import createStore from '../src/createStore';
+import { createStore } from '../src';
 import * as Reducers from './helpers/reducers/counter';
 
 describe('store events', () => {

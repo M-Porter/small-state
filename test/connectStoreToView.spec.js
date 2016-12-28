@@ -1,6 +1,5 @@
 import Marionette from 'backbone.marionette';
-import createStore from '../src/createStore';
-import connectStoreToView from '../src/connectStoreToView';
+import { createStore, connectStoreToView } from '../src';
 import * as Reducers from './helpers/reducers/counter';
 
 describe('connectStoreToView', () => {
