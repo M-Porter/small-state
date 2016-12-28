@@ -32,23 +32,9 @@ describe('connectStoreToView', () => {
     const view = new View();
     view.render();
 
-    const containerMethods = Object.keys(view.sc$);
-
-    // If the createStore functions are returned but throw an execption if
-    // invoked, then we know that the proxy is working.
-    expect(containerMethods.length).toBe(3);
-
-    expect(() =>
-      view.sc$.getState()
-    ).toThrow();
-
-    expect(() =>
-      view.sc$.getStore()
-    ).toThrow();
-
-    expect(() =>
-      view.sc$.dispatch(new Function)
-    ).toThrow();
+    // storeContainer property is a proxy which means no properties
+    // or methods will be exposed.
+    expect(Object.keys(view.sc$).length).toBe(0);
 
     const storeContainerMethods = Object.keys(view.sc$.store);
 
