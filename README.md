@@ -254,8 +254,7 @@ const incrementCounter = ({ state, store, resolve }) => {
 ## Connecting the store to your views
 
 **small-state** comes with a helper function to automatically connect your store
-and state to your views so that your views always have the latest states on render
-and initialize.
+and state to your views so that your views always have the latest state.
 
 ```js
 import View from 'your/View';
@@ -264,6 +263,22 @@ import { connectStoreToView, createStore } from 'small-state';
 const appStore = createStore();
 const ConnectedView = connectStoreToView(View, appStore);
 
-// view now has the properties appStore and state.
+// view now has the property stateContainer (aliased as sc$)
 const view = new ConnectedView();
 ```
+
+In the above code block, `view` now has the property `stateContainer`, which can
+also be accessed as the property `sc$`. The `stateContainer` in the views behave
+slightly different than that of the small-state store.
+
+_Assume `const view = new (connectStoreToView(View, appStore))` and `const store =
+createStore()` for the points below:_
+
+- `view.storeContainer` return the store object **but no methods can be invoked 
+  on it**. This is because the `storeContainer` property is a `Proxy` of the 
+  small-state store object.
+- `view.storeContainer.store` is the same as `store` which has the methods
+  `getState()`, `getStore()`, and `dispatch()`
+- `view.storeContainer.store.getStore()` is the same as `store.getStore()` which
+  has the methods `on()`, `of(), `trigger()`, and `getState()`
+- `view.storeContainer.state` is the same as `store.getState()`
