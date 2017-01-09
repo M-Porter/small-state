@@ -119,7 +119,7 @@ The `dispatch()` function is used to actually update the state. We will get
 into how to actually update the state in the next section 
 (_"Mutating the state"_) below.
 
-```
+```js
 const store = store.getStore();
 
 store.dispatch(someReducerFunction); // Dispatch returns a thenable
