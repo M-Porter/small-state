@@ -154,7 +154,7 @@ const decrementCounter = ({ state, resolve }) => {
 }
 
 const resetCounter = ({ state, resolve }) => {
-  counst newState = state.setIn('count', 0);
+  const newState = state.setIn('count', 0);
   resolve(newState);
 }
 ```
@@ -169,7 +169,7 @@ store.dispatch(incrementCounter)
   .then(state => console.log(state.count)); // Prints out '2'
 
 store.dispatch(decrementCounter)
-  .then(state => console.log(state.count)); // Prints out '3'
+  .then(state => console.log(state.count)); // Prints out '1'
 
 store.dispatch(resetCounter)
   .then(state => console.log(state.count)); // Prints out '0'
