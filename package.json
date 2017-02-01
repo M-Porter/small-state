@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "",
   "browser": "dist/small-state.js",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
     "dist",
     "lib",
